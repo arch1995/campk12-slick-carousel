@@ -1,6 +1,6 @@
 {
-  "name": "react-slick",
-  "version": "0.25.2",
+  "name": "react-slick-carousel",
+  "version": "1.0.0",
   "description": " React port of slick carousel",
   "main": "./lib",
   "files": [
@@ -17,11 +17,11 @@
     "gen": "node examples/scripts/generateExampleConfigs.js && node examples/scripts/generateExamples.js && xdg-open docs/jquery.html",
     "precommit": "lint-staged"
   },
-  "author": "Kiran Abburi",
+  "author": "Archit Gupta",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akiran/react-slick"
+    "url": "https://github.com/arch1995/react-slick-carousel"
   },
   "keywords": [
     "slick",
