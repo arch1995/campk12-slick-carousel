@@ -48,7 +48,7 @@ export const getSwipeDirection = (touchObject, verticalSwiping = false) => {
   xDist = touchObject.startX - touchObject.curX;
   yDist = touchObject.startY - touchObject.curY;
   r = Math.atan2(yDist, xDist);
-  swipeAngle = Math.round(r * 180 / Math.PI);
+  swipeAngle = Math.round((r * 180) / Math.PI);
   if (swipeAngle < 0) {
     swipeAngle = 360 - Math.abs(swipeAngle);
   }
@@ -195,7 +195,7 @@ export const slideHandler = spec => {
       finalSlide = animationSlide + slideCount;
       if (!infinite) finalSlide = 0;
       else if (slideCount % slidesToScroll !== 0)
-        finalSlide = slideCount - slideCount % slidesToScroll;
+        finalSlide = slideCount - (slideCount % slidesToScroll);
     } else if (!canGoNext(spec) && animationSlide > currentSlide) {
       animationSlide = finalSlide = currentSlide;
     } else if (centerMode && animationSlide >= slideCount) {
@@ -207,7 +207,9 @@ export const slideHandler = spec => {
       else if (slideCount % slidesToScroll !== 0) finalSlide = 0;
     }
     animationLeft = getTrackLeft({ ...spec, slideIndex: animationSlide });
+    console.log("here is animation left", animationLeft);
     finalLeft = getTrackLeft({ ...spec, slideIndex: finalSlide });
+    console.log("here is final left", finalLeft);
     if (!infinite) {
       if (animationLeft === finalLeft) animationSlide = finalSlide;
       animationLeft = finalLeft;
@@ -265,7 +267,8 @@ export const changeSlide = (spec, options) => {
     slideOffset = indexOffset === 0 ? slidesToScroll : indexOffset;
     targetSlide = currentSlide + slideOffset;
     if (lazyLoad && !infinite) {
-      targetSlide = (currentSlide + slidesToScroll) % slideCount + indexOffset;
+      targetSlide =
+        ((currentSlide + slidesToScroll) % slideCount) + indexOffset;
     }
   } else if (options.message === "dots") {
     // Click on dots
@@ -675,7 +678,7 @@ export const getTrackLeft = spec => {
   } = spec;
 
   var slideOffset = 0;
-  var targetLeft;
+  var targetLeft = 0;
   var targetSlide;
   var verticalOffset = 0;
 
@@ -700,17 +703,28 @@ export const getTrackLeft = spec => {
       slidesToOffset += parseInt(slidesToShow / 2);
     }
   } else {
+    console.log("here is slide index", slideIndex, slidesToShow);
+
     if (
       slideCount % slidesToScroll !== 0 &&
       slideIndex + slidesToScroll > slideCount
     ) {
-      slidesToOffset = slidesToShow - slideCount % slidesToScroll;
+      slidesToOffset = slidesToShow - (slideCount % slidesToScroll);
+    } else {
+      slidesToOffset = slideIndex % slidesToShow;
     }
     if (centerMode) {
       slidesToOffset = parseInt(slidesToShow / 2);
     }
   }
+
+  console.log(
+    "here is slidesToOffset",
+    slidesToOffset,
+    slidesToShow - (slideCount % slidesToScroll)
+  );
   slideOffset = slidesToOffset * slideWidth;
+  console.log("here is slides Offset", slideOffset);
   verticalOffset = slidesToOffset * slideHeight;
 
   if (!vertical) {

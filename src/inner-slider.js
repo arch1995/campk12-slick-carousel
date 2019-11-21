@@ -381,6 +381,7 @@ export class InnerSlider extends React.Component {
       trackRef: this.track,
       useCSS: this.props.useCSS && !dontAnimate
     });
+    console.log("here is next state", state, nextState);
     if (!state) return;
     beforeChange && beforeChange(currentSlide, state.currentSlide);
     let slidesToLoad = state.lazyLoadedList.filter(
@@ -392,6 +393,7 @@ export class InnerSlider extends React.Component {
       if (!nextState) return;
       this.animationEndCallback = setTimeout(() => {
         const { animating, ...firstBatch } = nextState;
+        console.log("here is first batch", firstBatch);
         this.setState(firstBatch, () => {
           this.callbackTimers.push(
             setTimeout(() => this.setState({ animating }), 10)
@@ -709,7 +711,7 @@ export class InnerSlider extends React.Component {
     let innerSliderProps = {
       className: className,
       dir: "ltr",
-      style:this.props.style
+      style: this.props.style
     };
 
     if (this.props.unslick) {
