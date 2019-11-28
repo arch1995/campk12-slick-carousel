@@ -53,7 +53,7 @@ export default class SlickGoTo extends React.Component {
           <div>9</div>
           <div>10</div>
           <div>11</div>
-          {/* <div>12</div> */}
+          <div>12</div>
         </Slider>
       </div>
     );

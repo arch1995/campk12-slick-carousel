@@ -292,9 +292,16 @@ export const changeSlide = (spec, options) => {
     }
   } else if (options.message === "index") {
     targetSlide = Number(options.index);
+    let slideOffset = targetSlide % slidesToShow;
+    targetSlide -= slideOffset;
     if (targetSlide === options.currentSlide) {
       return null;
     }
+    // if (targetSlide + slidesToShow > slideCount) {
+    //   console.log("here is slide ", (targetSlide + slidesToShow) - slideCount)
+    //   let slidesToOffset = (targetSlide + slidesToShow) - slideCount;
+    //   targetSlide -= slidesToOffset;
+    // }
   }
   return targetSlide;
 };
@@ -647,6 +654,8 @@ export const getTrackLeft = spec => {
     return 0;
   }
 
+  console.log("here is spec", spec);
+
   checkSpecKeys(spec, [
     "slideIndex",
     "trackRef",
@@ -710,21 +719,17 @@ export const getTrackLeft = spec => {
       slideIndex + slidesToScroll > slideCount
     ) {
       slidesToOffset = slidesToShow - (slideCount % slidesToScroll);
-    } else {
-      slidesToOffset = slideIndex % slidesToShow;
     }
+    // if (slideIndex + slidesToShow > slideCount) {
+    //   console.log("here is slide ", (slideIndex + slidesToShow) - slideCount)
+    //   slidesToOffset = (slideIndex + slidesToShow) - slideCount;
+    // }
     if (centerMode) {
       slidesToOffset = parseInt(slidesToShow / 2);
     }
   }
 
-  console.log(
-    "here is slidesToOffset",
-    slidesToOffset,
-    slidesToShow - (slideCount % slidesToScroll)
-  );
   slideOffset = slidesToOffset * slideWidth;
-  console.log("here is slides Offset", slideOffset);
   verticalOffset = slidesToOffset * slideHeight;
 
   if (!vertical) {
