@@ -1,6 +1,6 @@
 {
   "name": "campk12-slick-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": " React port of slick carousel",
   "main": "./lib",
   "files": [
